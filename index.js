@@ -85,7 +85,7 @@ function createResourceGroup(callback) {
 
 function loadTemplateAndDeploy(callback) {
   try {
-	  var templateFilePath = path.join(__dirname, "templates/template.json");
+    var templateFilePath = path.join(__dirname, "templates/template.json");
     var template = JSON.parse(fs.readFileSync(templateFilePath, 'utf8'));
     var publicSSHKey = fs.readFileSync(expandTilde(publicSSHKeyPath), 'utf8');
   } catch (ex) {
