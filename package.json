@@ -18,9 +18,10 @@
   "main": "./index.js",
   "license": "MIT",
   "dependencies": {
+    "async": "0.2.7",
     "azure-arm-resource": "^1.4.4-preview",
-    "ms-rest-azure": "^1.14.3",
-    "async": "0.2.7"
+    "expand-tilde": "^1.2.2",
+    "ms-rest-azure": "^1.14.3"
   },
   "homepage": "https://github.com/Azure-Samples/resource-manager-node-template-deployment",
   "repository": {

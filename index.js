@@ -9,6 +9,7 @@ var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var async = require('async');
+var expandTilde = require('expand-tilde');
 var msRestAzure = require('ms-rest-azure');
 var ResourceManagementClient = require('azure-arm-resource').ResourceManagementClient;
 
@@ -17,7 +18,7 @@ var clientId = process.env['CLIENT_ID'];
 var domain = process.env['DOMAIN'];
 var secret = process.env['APPLICATION_SECRET'];
 var subscriptionId = process.env['AZURE_SUBSCRIPTION_ID'];
-var publicSSHKeyPath = process.argv[2] || "~/.ssh/id_ras.pub";
+var publicSSHKeyPath = "~/.ssh/id_rsa.pub";
 var resourceClient;
 //Sample Config
 var randomIds = {};
@@ -134,11 +135,12 @@ function createResource(callback) {
 }
 
 function loadTemplateAndDeploy(callback) {
-  var templateFilePath = path.join(__dirname, "templates/template.json");
-  
   try {
+	var templateFilePath = path.join(__dirname, "templates/template.json");
+	console.log(publicSSHKeyPath);
     var template = JSON.parse(fs.readFileSync(templateFilePath, 'utf8'));
-    var publicSSHKey = ''; //fs.readFileSync(publicSSHKeyPath, 'utf8');
+    var publicSSHKey = fs.readFileSync(expandTilde(publicSSHKeyPath), 'utf8');
+	console.log(publicSSHKey);
   } catch (ex) {
     callback(ex);
   }
