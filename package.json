@@ -1,0 +1,34 @@
+{
+  "name": "resource-manager-node-template-deployment",
+  "author": "Microsoft Corporation",
+  "contributors": [
+    "Chen, Hao <hach@microsoft.com>",
+    "Zavery, Amar <amzavery@microsoft.com>"
+  ],
+  "version": "0.1.0",
+  "description": "An example illustrating how to use node.js to deploy an Azure Resource Manager Template.",
+  "tags": [
+    "azure",
+    "sdk"
+  ],
+  "keywords": [
+    "node",
+    "azure"
+  ],
+  "main": "./index.js",
+  "license": "MIT",
+  "dependencies": {
+    "async": "0.2.7",
+    "azure-arm-resource": "^1.4.4-preview",
+    "expand-tilde": "^1.2.2",
+    "ms-rest-azure": "^1.14.3"
+  },
+  "homepage": "https://github.com/Azure-Samples/resource-manager-node-template-deployment",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Azure-Samples/resource-manager-node-template-deployment"
+  },
+  "bugs": {
+    "url": "https://github.com/azure/azures-sdk-for-node/issues"
+  }
+}
