@@ -6,8 +6,8 @@ author: hach
 
 # Deploy an SSH Enabled VM with a Template in Node.js
 
-This sample explains how to use Azure Resource Manager templates to deploy your Resources to Azure. It shows how to
-deploy your Resources by using the Azure SDK for Node.js
+This sample explains how to use Azure Resource Manager templates to deploy your resources to Azure
+using the Azure SDK for Node.js.
 
 When deploying an application definition with a template, you can provide parameter values to customize how the
 resources are created. You specify values for these parameters either inline or in a parameter file.
@@ -68,8 +68,7 @@ resources are created. You specify values for these parameters either inline or 
 <a id="example"></a>
 ## What is index.js doing?
 
-The sample creates, lists and updates a website.
-It starts by logging in using your service principal.
+The sample starts by logging in using your service principal.
 
 ```
 _validateEnvironmentVariables();
