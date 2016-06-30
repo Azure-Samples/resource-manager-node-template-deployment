@@ -1,5 +1,8 @@
-# resource-manager-node-template-deployment
-An example illustrating how to use node.js to deploy an Azure Resource Manager Template 
+---
+services: azure-resource-manager
+platforms: nodejs
+author: hach
+---
 
 # Deploy an SSH Enabled VM with a Template in Node.js
 
@@ -59,6 +62,80 @@ resources are created. You specify values for these parameters either inline or 
     ```
     node cleanup.js <resourceGroupName> <deploymentName>
     ```
+
+## What is index.js doing?
+
+The sample creates, lists and updates a website.
+It starts by logging in using your service principal.
+
+```
+_validateEnvironmentVariables();
+var clientId = process.env['CLIENT_ID'];
+var domain = process.env['DOMAIN'];
+var secret = process.env['APPLICATION_SECRET'];
+var subscriptionId = process.env['AZURE_SUBSCRIPTION_ID'];
+var publicSSHKeyPath = process.argv[2] || "~/.ssh/id_rsa.pub";
+var resourceClient;
+//Sample Config
+var randomIds = {};
+var location = 'eastus';
+var resourceGroupName = _generateRandomId('testrg', randomIds);
+var deploymentName = _generateRandomId('testdeployment', randomIds);
+var dnsLabelPrefix = _generateRandomId('testdnslable', randomIds);
+
+///////////////////////////////////////
+//Entrypoint for the sample script   //
+///////////////////////////////////////
+
+msRestAzure.loginWithServicePrincipalSecret(clientId, secret, domain, function (err, credentials) {
+  if (err) return console.log(err);
+  resourceClient = new ResourceManagementClient(credentials, subscriptionId);
+```
+
+Then it creates a resource group into which the VM will be deployed.
+
+```
+var groupParameters = { location: location, tags: { sampletag: 'sampleValue' } };
+resourceClient.resourceGroups.createOrUpdate(resourceGroupName, groupParameters, callback);
+```
+
+### Deploy the template
+
+Now, the sample loads the template and deploys it into the resource group that it just created.
+
+```
+try {
+  var templateFilePath = path.join(__dirname, "templates/template.json");
+  var template = JSON.parse(fs.readFileSync(templateFilePath, 'utf8'));
+  var publicSSHKey = fs.readFileSync(expandTilde(publicSSHKeyPath), 'utf8');
+} catch (ex) {
+  return callback(ex);
+}
+  
+var parameters = {
+  "sshKeyData": {
+    "value": publicSSHKey
+  },
+  "vmName": {
+    "value": "azure-deployment-sample-vm"
+  },
+  "dnsLabelPrefix": {
+    "value": dnsLabelPrefix
+  }
+};
+var deploymentParameters = {
+  "properties": {
+    "parameters": parameters,
+    "template": template,
+    "mode": "Incremental"
+  }
+};
+  
+resourceClient.deployments.createOrUpdate(resourceGroupName, 
+                                          deploymentName, 
+                                          deploymentParameters, 
+                                          callback);
+```
 
 ## More information
 
