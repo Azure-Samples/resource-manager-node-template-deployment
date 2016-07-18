@@ -1,7 +1,7 @@
 ---
 services: azure-resource-manager
 platforms: nodejs
-author: hach
+author: haocs
 ---
 
 # Deploy an SSH Enabled VM with a Template in Node.js
