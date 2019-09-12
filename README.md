@@ -1,7 +1,12 @@
 ---
-services: azure-resource-manager
-platforms: nodejs
-author: haocs
+page_type: sample
+languages:
+- javascript
+products:
+- azure
+description: "This sample explains how to use Azure Resource Manager templates to deploy your resources to Azure
+using the Azure SDK for Node.js."
+urlFragment: resource-manager-node-template-deployment
 ---
 
 # Deploy an SSH Enabled VM with a Template in Node.js
